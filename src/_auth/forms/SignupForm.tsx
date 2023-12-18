@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { SignupvalidationSchema } from "@/lib/validation"
 import Loader from "@/components/shared/loader"
 import { Link } from "react-router-dom"
+import { createUserAccount } from "@/lib/appwrite/api"
 
 const SignupForm = () => {
   const isloading = false;
@@ -23,8 +24,8 @@ const SignupForm = () => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupvalidationSchema>) {
-   //const newUser = await createUserAccount(values)
-    console.log(values)
+   const newUser = await createUserAccount(values)
+    console.log(newUser)
   }
 
 
@@ -36,7 +37,7 @@ const SignupForm = () => {
         <h2 className=" h3-bold md:h2-bold pt-5 sm:pt-12">Create new account </h2>
         <p className=" text-light-3 small-medium md:base-regular mt-2">Please enter your details </p>
 
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex flex-col gap-5 w-full mt-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex flex-col  w-full mt-2">
           <FormField
             control={form.control}
             name="name"

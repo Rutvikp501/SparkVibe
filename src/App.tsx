@@ -30,5 +30,10 @@ const App = () => {
 }
 
 export default App
-// color heightlight , tailwind css intellisense 1:00:33 .env.local VITE_APPWRITE_PROJECT_ID="65719bef5e258e8be4fe"
-//VITE_APPWRITE_URL='https://cloud.appwrite.io/v1'
+// color heightlight , tailwind css intellisense 
+// cONTINUE FROM => 1:00:33 
+// .env.local 
+// VITE_APPWRITE_PROJECT_ID="65719bef5e258e8be4fe"
+// VITE_APPWRITE_URL='https://cloud.appwrite.io/v1'
+// VITE_APPWRITE_STORAGE_ID='658030ccbfec6f0a5d75'
+// VITE_APPWRITE_DATABASE_ID='65803136a77357fff63d'
