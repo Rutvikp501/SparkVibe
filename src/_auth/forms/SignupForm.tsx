@@ -6,11 +6,16 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input"
 import { SignupvalidationSchema } from "@/lib/validation"
 import Loader from "@/components/shared/loader"
-import { Link } from "react-router-dom"
-import { createUserAccount } from "@/lib/appwrite/api"
+import { useToast } from "@/components/ui/use-toast"
+
+import { Link,useNavigate } from "react-router-dom"
+import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
+import { useUsercontext } from "@/context/AuthContext"
 
 const SignupForm = () => {
-  const isloading = false;
+  const { toast } = useToast()
+  const {checkAuthUser, isLoading:isUserLoading}=useUsercontext()
+  const navigate = useNavigate()
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupvalidationSchema>>({
     resolver: zodResolver(SignupvalidationSchema),
@@ -22,10 +27,31 @@ const SignupForm = () => {
     },
   })
 
+
+  const {mutateAsync: createUserAccount ,isloading:isCreatingUser}=useCreateUserAccount();
+  const {mutateAsync: signInAccount , isloading:isSigningIn } = useSignInAccount();
+
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupvalidationSchema>) {
    const newUser = await createUserAccount(values)
-    console.log(newUser)
+   if(!newUser){
+    return toast({ title: "Sign up failed. Please try again."})
+   }
+   const session = await signInAccount({
+    email: values.email,
+    password: values.password,
+   })
+   if(!session){
+    return toast({ title: "Sign up failed. Please try again."})
+   }
+   const isLoggedIn = await checkAuthUser();
+   if (isLoggedIn){
+    form.reset();
+
+    navigate('/')
+   }else{
+   return toast({title:'Sign up failed. Please try again.'})
+   }
   }
 
 
@@ -95,7 +121,7 @@ const SignupForm = () => {
             )}
           />
           <Button type="submit" className="shad-button_primary">
-            {isloading?(
+            {isCreatingUser?(
               <div className="flex-center gap-2">
                <Loader/> Loading....
               </div>
