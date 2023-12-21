@@ -20,7 +20,7 @@ const SignupForm = () => {
   const form = useForm<z.infer<typeof SignupvalidationSchema>>({
     resolver: zodResolver(SignupvalidationSchema),
     defaultValues: {
-      name: '',
+      name: "",
       username: "",
       email: "",
       password: "",
@@ -29,11 +29,13 @@ const SignupForm = () => {
 
 
   const {mutateAsync: createUserAccount ,isPending:isCreatingUser}=useCreateUserAccount();
-  const {mutateAsync: signInAccount , isloading:isSigningIn } = useSignInAccount();
+  const {mutateAsync: signInAccount , isPending:isSigningIn } = useSignInAccount();
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof SignupvalidationSchema>) {
-   const newUser = await createUserAccount(values)
+  const  onSubmit = async (values: z.infer<typeof SignupvalidationSchema>) =>{
+    try {
+   const newUser = await createUserAccount(values);
+   console.log(newUser);
    if(!newUser){
     return toast({ title: "Sign up failed. Please try again."})
    }
@@ -42,7 +44,9 @@ const SignupForm = () => {
     password: values.password,
    })
    if(!session){
-    return toast({ title: "Sign up failed. Please try again."})
+    toast({ title: "Sign up failed. Please try again."})
+    navigate("/sign-in");
+    return;
    }
    const isLoggedIn = await checkAuthUser();
    if (isLoggedIn){
@@ -52,6 +56,9 @@ const SignupForm = () => {
    }else{
    return toast({title:'Sign up failed. Please try again.'})
    }
+  } catch (error) {
+    console.log({ error });
+  }
   }
 
 
@@ -121,13 +128,13 @@ const SignupForm = () => {
             )}
           />
           <Button type="submit" className="shad-button_primary">
-            {isCreatingUser?(
+            {isCreatingUser || isSigningIn || isUserLoading ?(
               <div className="flex-center gap-2">
                <Loader/> Loading....
               </div>
             ):"Sign up"}
           </Button>
-          <p className=" text-small-regular text-light-2 text-center mt-2"> Already have an account?
+          <p className="text-small-regular text-light-2 text-center mt-2"> Already have an account?
           <Link to="/sign-in" className=" text-primary-500 text-center mt-2"> Log in</Link>
           </p>
         </form>
