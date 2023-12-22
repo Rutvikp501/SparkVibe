@@ -22,7 +22,8 @@ const newUser = await saveUserToDB({
     name: newAccount.name,
     email: newAccount.email,
     username: user.username,
-    inamgeUrl:avatarUrl,
+    imageUrl:avatarUrl,
+    
 })
 console.log(newUser);
 
@@ -40,7 +41,7 @@ export async function saveUserToDB(user:{
     accountId:string;
     email:string;
     name:string;
-    inamgeUrl:URL;
+    imageUrl:URL;
     username?:string;
 }) {
     //console.log(user);
