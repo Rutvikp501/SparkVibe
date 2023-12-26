@@ -41,7 +41,7 @@ const App = () => {
 
 export default App
 // color heightlight , tailwind css intellisense 
-// cONTINUE FROM => 1:56:10 
+// CONTINUE FROM => 2:42:47
 // .env.local 
 // VITE_APPWRITE_PROJECT_ID="65719bef5e258e8be4fe"
 // VITE_APPWRITE_URL='https://cloud.appwrite.io/v1'
