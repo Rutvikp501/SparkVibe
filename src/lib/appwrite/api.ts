@@ -10,8 +10,7 @@ export async function createUserAccount(user:INewUser){
             ID.unique(),
             user.email,
             user.password,
-            user.name,
-            
+            user.name,   
         );
         
         if(!newAccount) throw Error;  
@@ -25,7 +24,6 @@ const newUser = await saveUserToDB({
     imageUrl:avatarUrl,
     
 })
-console.log(newUser);
 
     return newUser;
     } catch (error) {
@@ -103,3 +101,14 @@ export async function getCurrentUser() {
       return null;
     }
   }
+
+   // ============================== Sign Out
+  export async function signOutAccount(){
+    try {
+        const session = await account.deleteSession('current')
+        return session;
+    } catch (error) {
+        console.log(error);
+        
+    }
+}

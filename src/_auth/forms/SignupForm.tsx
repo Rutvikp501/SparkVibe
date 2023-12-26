@@ -2,7 +2,7 @@ import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
 import { useForm } from "react-hook-form"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
+import { Form, FormControl,  FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { SignupvalidationSchema } from "@/lib/validation"
 import Loader from "@/components/shared/loader"
@@ -10,11 +10,11 @@ import { useToast } from "@/components/ui/use-toast"
 
 import { Link,useNavigate } from "react-router-dom"
 import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
-import { useUsercontext } from "@/context/AuthContext"
+import { useUserContext } from "@/context/AuthContext"
 
 const SignupForm = () => {
   const { toast } = useToast()
-  const {checkAuthUser, isLoading:isUserLoading}=useUsercontext()
+  const {checkAuthUser, isLoading:isUserLoading}=useUserContext()
   const navigate = useNavigate()
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupvalidationSchema>>({
@@ -35,7 +35,6 @@ const SignupForm = () => {
   const  onSubmit = async (values: z.infer<typeof SignupvalidationSchema>) =>{
     try {
    const newUser = await createUserAccount(values);
-   console.log(newUser);
    if(!newUser){
     return toast({ title: "Sign up failed. Please try again."})
    }
@@ -65,7 +64,7 @@ const SignupForm = () => {
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col" >
-        <img src="/assets/images/logo.svg" alt="logo" />
+        <img src="/assets/images/logo-no-background.svg" alt="logo" />
 
         <h2 className=" h3-bold md:h2-bold pt-5 sm:pt-12">Create new account </h2>
         <p className=" text-light-3 small-medium md:base-regular mt-2">Please enter your details </p>
