@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form"
 import { Form, FormControl,  FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { SignupvalidationSchema } from "@/lib/validation"
-import Loader from "@/components/shared/loader"
 import { useToast } from "@/components/ui/use-toast"
 
 import { Link,useNavigate } from "react-router-dom"
@@ -129,7 +128,7 @@ const SignupForm = () => {
           <Button type="submit" className="shad-button_primary">
             {isCreatingUser || isSigningIn || isUserLoading ?(
               <div className="flex-center gap-2">
-               <Loader/> Loading....
+               Loading....
               </div>
             ):"Sign up"}
           </Button>
