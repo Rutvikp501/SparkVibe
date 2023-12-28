@@ -12,3 +12,6 @@ export const SigninvalidationSchema = z.object({
     password:z.string().min(8,{message:'Password Must have 8 letters'}),
 
   })
+export const PostvalidationSchema = z.object({
+    caption:z.string().min(5).max(22)
+  })
