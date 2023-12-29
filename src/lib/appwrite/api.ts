@@ -112,3 +112,12 @@ export async function getCurrentUser() {
         
     }
 }
+  export async function createPost(){
+    try {
+       console.log("test");
+       
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
