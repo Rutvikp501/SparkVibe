@@ -11,7 +11,7 @@ import { Models } from "appwrite"
 import { useCreatePost } from "@/lib/react-query/queriesAndMutations"
 import { useUserContext } from "@/context/AuthContext"
 import { toast } from "../ui/use-toast"
-import { Navigate, useNavigate } from "react-router-dom"
+import {  useNavigate } from "react-router-dom"
 type  PostFormsProps ={
   post?:Models.Document;
   action: "Create" | "Update";
@@ -38,7 +38,7 @@ const navigate =useNavigate()
     const newPost = await creatPost({
       ...value,
       userId: user.id,
-    });
+    })
   
     if(!newPost){
       toast({
