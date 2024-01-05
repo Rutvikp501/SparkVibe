@@ -35,15 +35,15 @@ const SignupForm = () => {
     try {
    const newUser = await createUserAccount(values);
    if(!newUser){
-    return toast({ title: "Sign up failed. Please try again."})
+    return toast({ title: "Sign up failed. Please try again.!"})
    }
    const session = await signInAccount({
     email: values.email,
     password: values.password,
    })
    if(!session){
-    toast({ title: "Sign up failed. Please try again."})
-    navigate("/sign-in");
+    toast({ title: "A user with the same email already exists"})
+    // navigate("/sign-up");
     return;
    }
    const isLoggedIn = await checkAuthUser();
@@ -52,7 +52,7 @@ const SignupForm = () => {
 
     navigate('/')
    }else{
-   return toast({title:'Sign up failed. Please try again.'})
+   return toast({title:'Sign up failed. Please try again.!!!'})
    }
   } catch (error) {
     console.log({ error });

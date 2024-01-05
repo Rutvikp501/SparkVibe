@@ -32,8 +32,11 @@ const SigninForm = () => {
     email: values.email,
     password: values.password,
    })
+   let errmsg =''
+   console.log(errmsg);
+   
    if(!session){
-    toast({ title: "Sign up failed. Please try again."})
+    toast({ title: "User does not exist, Please Sign up first  "})
     navigate("/sign-in");
     return;
    }
@@ -43,7 +46,7 @@ const SigninForm = () => {
 
     navigate('/')
    }else{
-   return toast({title:'Sign up failed. Please try again.'})
+   return toast({title:'Please check the email and password.'})
    }
   } catch (error) {
     console.log({ error });
