@@ -3,6 +3,7 @@ import GridPostList from '@/components/shared/GridPostList'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useUserContext } from '@/context/AuthContext'
 import { useGetPosts } from '@/lib/react-query/queriesAndMutations'
+import { Link } from 'react-router-dom'
 
 const Profile = () => {
   const user1 = useUserContext()
@@ -37,7 +38,15 @@ const Profile = () => {
   <CardTitle>{user.name}</CardTitle>
   <CardDescription className=' text-light-3'>@{user.username}</CardDescription>
 </CardHeader>
-             
+<Link
+                  to={`/update-user/${user?.id}`} >
+                  <img
+                    src={"/assets/icons/edit.svg"}
+                    alt="edit"
+                    width={24}
+                    height={24}
+                  />
+                </Link>
             </div>
           </div>
 

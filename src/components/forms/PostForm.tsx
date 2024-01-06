@@ -48,7 +48,7 @@ const navigate =useNavigate()
 
       if (!updatedPost) {
         toast({
-          title: `${action} post failed. Please try again.`,
+          title: `${action} User failed. Please try again.`,
         });
       }
       return navigate(`/posts/${post.$id}`);

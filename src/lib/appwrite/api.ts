@@ -489,6 +489,8 @@ export async function getUserById(userId: string) {
 
 // ============================== UPDATE USER
 export async function updateUser(user: IUpdateUser) {
+  console.log(user);
+  
   const hasFileToUpdate = user.file.length > 0;
   try {
     let image = {
