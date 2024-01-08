@@ -6,8 +6,6 @@ import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { useUpdateUser } from "@/lib/react-query/queriesAndMutations"
 import Loader from "../shared/Loader"
-
-import { useUserContext } from "@/context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -20,7 +18,7 @@ type  UserFormsProps ={
   };
 
 const UserForm = ({user,action}:UserFormsProps) => {
-   // console.log(user);
+   //console.log(user);
     
     const {mutateAsync:updateUser, isPending:isLoadingUpdate}=useUpdateUser();
     const navigate =useNavigate()
@@ -38,17 +36,14 @@ const UserForm = ({user,action}:UserFormsProps) => {
       })
       async function onSubmit(value: z.infer<typeof UservalidationSchema>) {
         if (user && action === "Update") {
-            console.log(value);
             
           const updateduser = await updateUser({
             ...value,
-            userId:user.id,
-            bio:user.bio,
+            userId:user?.$id,
+            bio:value?.bio,
             imageId: user.imageId,
             imageUrl: user.imageUrl,
           });
-    
-//console.log(updateduser);
           if (!updateduser) {
             toast({
               title: `${action} post failed. Please try again.`,
